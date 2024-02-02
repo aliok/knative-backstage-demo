@@ -1,0 +1,25 @@
+apiVersion: eventing.knative.dev/v1beta2
+kind: EventType
+metadata:
+  name: com.mycompany.frauddetected
+spec:
+  type: com.mycompany.frauddetected
+  source: http://example.com/source
+  schema: http://example.com/schema
+  schemaData: |
+    {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "TestEvent",
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  broker: default
+  reference:
+    apiVersion: eventing.knative.dev/v1
+    kind: Broker
+    name: default
+  description: "Fraud detected"

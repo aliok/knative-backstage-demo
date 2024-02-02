@@ -13,10 +13,13 @@ Create broker, services and other resources:
 
 ```bash
 kubectl apply -f ./100-manifest/100-broker.yaml
+kubectl apply -f ./100-manifest/151-paymentreceived-event-type.yaml
+kubectl apply -f ./100-manifest/152-paymentprocessed-event-type.yaml
+kubectl apply -f ./100-manifest/153-frauddetected-event-type.yaml
 kubectl apply -f ./100-manifest/200-payment-processor.yaml
-kubectl apply -f ./100-manifest/300-payment-event-generator.yaml
-kubectl apply -f ./100-manifest/400-fraud-detector.yaml
-kubectl apply -f ./100-manifest/500-fraud-logger.yaml
+kubectl apply -f ./100-manifest/210-fraud-detector.yaml
+kubectl apply -f ./100-manifest/220-fraud-logger.yaml
+kubectl apply -f ./100-manifest/290-payment-event-generator.yaml
 ```
 
 ## Starting up
@@ -63,10 +66,13 @@ open http://localhost:3000/
 ## Cleanup
 
 ```bash
-kubectl delete -f ./100-manifest/500-fraud-logger.yaml
-kubectl delete -f ./100-manifest/400-fraud-detector.yaml
-kubectl delete -f ./100-manifest/300-payment-event-generator.yaml
+kubectl delete -f ./100-manifest/290-payment-event-generator.yaml
+kubectl delete -f ./100-manifest/220-fraud-logger.yaml
+kubectl delete -f ./100-manifest/210-fraud-detector.yaml
 kubectl delete -f ./100-manifest/200-payment-processor.yaml
+kubectl delete -f ./100-manifest/153-frauddetected-event-type.yaml
+kubectl delete -f ./100-manifest/152-paymentprocessed-event-type.yaml
+kubectl delete -f ./100-manifest/151-paymentreceived-event-type.yaml
 kubectl delete -f ./100-manifest/100-broker.yaml
 ```
 

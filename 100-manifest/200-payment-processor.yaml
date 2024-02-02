@@ -4,7 +4,6 @@ metadata:
   name: payment-processor
   labels:
     app: payment-processor
-    backstage.io/kubernetes-id: payment-processor
 spec:
   containers:
     - name: payment-processor
@@ -26,6 +25,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: payment-processor
+  labels:
+    backstage.io/kubernetes-id: payment-processor
 spec:
   selector:
     app: payment-processor
