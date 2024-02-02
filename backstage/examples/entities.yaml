@@ -39,3 +39,47 @@ spec:
     message ExampleMessage {
       string example = 1;
     };
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: payment-processor
+  annotations:
+    backstage.io/kubernetes-id: payment-processor
+spec:
+  lifecycle: production
+  owner: guests
+  type: service
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: payment-event-generator-source
+  annotations:
+    backstage.io/kubernetes-id: payment-event-generator-source
+spec:
+  lifecycle: production
+  owner: guests
+  type: service
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: fraud-detector
+  annotations:
+    backstage.io/kubernetes-id: fraud-detector
+spec:
+  lifecycle: production
+  owner: guests
+  type: service
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: fraud-logger
+  annotations:
+    backstage.io/kubernetes-id: fraud-logger
+spec:
+  lifecycle: production
+  owner: guests
+  type: service

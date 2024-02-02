@@ -4,6 +4,9 @@ metadata:
   name: payment-event-generator-source
 spec:
   template:
+    metadata:
+      labels:
+        backstage.io/kubernetes-id: payment-event-generator-source
     spec:
       containers:
         - name: event-generator

@@ -4,6 +4,7 @@ metadata:
   name: fraud-detector
   labels:
     app: fraud-detector
+    backstage.io/kubernetes-id: fraud-detector
 spec:
   containers:
     - name: fraud-detector

@@ -4,6 +4,7 @@ metadata:
   name: payment-processor
   labels:
     app: payment-processor
+    backstage.io/kubernetes-id: payment-processor
 spec:
   containers:
     - name: payment-processor
