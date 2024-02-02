@@ -101,3 +101,26 @@ catalog:
     #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/acme-corp.yaml
     #   rules:
     #     - allow: [User, Group]
+
+kubernetes:
+  serviceLocatorMethod:
+    type: 'multiTenant'
+  clusterLocatorMethods:
+    - type: 'config'
+      clusters:
+        - url: ${KUBE_API_SERVER_URL}
+          authProvider: 'serviceAccount'
+          skipTLSVerify: true
+          skipMetricsLookup: true
+          serviceAccountToken: ${KUBE_SA_TOKEN}
+          # we're skipping TLS verification, so no need for a CA
+          # caData: ''
+          # caFile: '' # local path to CA file
+          name: my-kube-cluster
+          # remaining stays default
+          dashboardUrl: http://127.0.0.1:64713 # url copied from running the command: minikube service kubernetes-dashboard -n kubernetes-dashboard
+          dashboardApp: standard
+          customResources:
+            - group: 'argoproj.io'
+              apiVersion: 'v1alpha1'
+              plural: 'rollouts'

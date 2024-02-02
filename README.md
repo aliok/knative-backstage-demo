@@ -19,6 +19,47 @@ kubectl apply -f ./100-manifest/400-fraud-detector.yaml
 kubectl apply -f ./100-manifest/500-fraud-logger.yaml
 ```
 
+## Starting up
+
+You need a service account that the Backstage backend can use to access the Kubernetes API:
+```bash
+# 1. create a new service account in the kube-system namespace
+kubectl -n kube-system create serviceaccount backstage-admin
+# 2. create a clusterrolebinding
+kubectl create clusterrolebinding backstage-admin --clusterrole=cluster-admin --serviceaccount=kube-system:backstage-admin
+# 3. create a secret for the service account
+kubectl apply -f - <<EOF
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: backstage-admin
+      namespace: kube-system
+      annotations:
+        kubernetes.io/service-account.name: backstage-admin
+    type: kubernetes.io/service-account-token
+EOF
+```
+
+Set up some environment variables:
+```bash
+export KUBE_API_SERVER_URL=$(kubectl config view --minify --output jsonpath="{.clusters[*].cluster.server}") # e.g. "https://192.168.2.151:16443"
+# get the SA token
+export KUBE_SA_TOKEN=$(kubectl -n kube-system get secret backstage-admin -o jsonpath='{.data.token}' | base64 --decode)
+
+# run a sanity check with the token
+curl -k -H "Authorization: Bearer $KUBE_SA_TOKEN" -X GET "${KUBE_API_SERVER_URL}/api/v1/nodes" | json_pp
+```
+
+Start backstage:
+```bash
+
+cd backstage
+yarn dev
+
+open http://localhost:3000/
+```
+
+
 ## Cleanup
 
 ```bash
