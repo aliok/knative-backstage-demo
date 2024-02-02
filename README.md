@@ -73,8 +73,6 @@ kubectl delete -f ./100-manifest/100-broker.yaml
 
 
 TODO:
-- Install Backstage
-- Configure Backstage Kubernetes plugin
 - Install Backstage backend
 - Configure Backstage plugin
 - 
