@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fraud-detector
+  labels:
+    app: fraud-detector
+spec:
+  containers:
+    - name: fraud-detector
+      image: aliok/generic-service:latest
+      imagePullPolicy: Always
+      ports:
+        - containerPort: 8080
+      env:
+        - name: REPLY_TYPE
+          value: "com.mycompany.frauddetected"
+        - name: REPLY_PERCENTAGE
+          value: "10"
+        - name: SOURCE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fraud-detector
+spec:
+  selector:
+    app: fraud-detector
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+---
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: fraud-detector-trigger
+spec:
+  broker: default
+  filter:
+    attributes:
+      type: com.mycompany.paymentprocessed
+  subscriber:
+    ref:
+      apiVersion: v1
+      kind: Service
+      name: fraud-detector

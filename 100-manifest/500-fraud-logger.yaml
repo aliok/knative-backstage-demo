@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fraud-logger
+  labels:
+    app: fraud-logger
+spec:
+  containers:
+    - name: fraud-logger
+      image: aliok/generic-service:latest
+      imagePullPolicy: Always
+      ports:
+        - containerPort: 8080
+      env:
+        - name: SOURCE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fraud-logger
+spec:
+  selector:
+    app: fraud-logger
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+---
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: fraud-logger-trigger
+spec:
+  broker: default
+  filter:
+    attributes:
+      type: com.mycompany.frauddetected
+  subscriber:
+    ref:
+      apiVersion: v1
+      kind: Service
+      name: fraud-logger

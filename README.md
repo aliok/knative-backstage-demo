@@ -9,12 +9,34 @@ Install Knative Eventing and Serving:
 ./000-infra/02-kn-eventing.sh
 ```
 
+Create broker, services and other resources:
+
+```bash
+kubectl apply -f ./100-manifest/100-broker.yaml
+kubectl apply -f ./100-manifest/200-payment-processor.yaml
+kubectl apply -f ./100-manifest/300-payment-event-generator.yaml
+kubectl apply -f ./100-manifest/400-fraud-detector.yaml
+kubectl apply -f ./100-manifest/500-fraud-logger.yaml
+```
+
+## Cleanup
+
+```bash
+kubectl delete -f ./100-manifest/500-fraud-logger.yaml
+kubectl delete -f ./100-manifest/400-fraud-detector.yaml
+kubectl delete -f ./100-manifest/300-payment-event-generator.yaml
+kubectl delete -f ./100-manifest/200-payment-processor.yaml
+kubectl delete -f ./100-manifest/100-broker.yaml
+```
+
+
 
 TODO:
-- Install Knative Eventing and Serving
-- Create broker, services and other resources
+- Install Backstage
+- Configure Backstage Kubernetes plugin
 - Install Backstage backend
 - Configure Backstage plugin
+- 
 
 
 ## Building demo images
@@ -59,7 +81,7 @@ There are 2 images:
   npm install
   
   # run locally
-  REPLY_TYPE="test-reply" node index.js
+  REPLY_TYPE="test-reply" REPLY_PERCENTAGE="50" node index.js
   
   # Send a test event
   curl -i 'http://localhost:8080/'                      \

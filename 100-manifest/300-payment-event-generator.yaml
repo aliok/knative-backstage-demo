@@ -1,0 +1,24 @@
+apiVersion: sources.knative.dev/v1
+kind: ContainerSource
+metadata:
+  name: payment-event-generator-source
+spec:
+  template:
+    spec:
+      containers:
+        - name: event-generator
+          image: aliok/event-generator:latest
+          env:
+            - name: EVENT_TYPE
+              value: "com.mycompany.paymentreceived"
+            - name: SEND_INTERVAL
+              value: "5000"
+            - name: SOURCE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+  sink:
+    ref:
+      apiVersion: eventing.knative.dev/v1
+      kind: Broker
+      name: default
