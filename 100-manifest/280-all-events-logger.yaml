@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: all-events-logger
+  labels:
+    app: all-events-logger
+spec:
+  containers:
+    - name: all-events-logger
+      image: aliok/generic-service:latest
+      imagePullPolicy: Always
+      ports:
+        - containerPort: 8080
+      env:
+        - name: SOURCE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: all-events-logger
+  labels:
+    backstage.io/kubernetes-id: all-events-logger
+spec:
+  selector:
+    app: all-events-logger
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+---
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: all-events-logger-trigger
+spec:
+  broker: default
+  subscriber:
+    ref:
+      apiVersion: v1
+      kind: Service
+      name: all-events-logger

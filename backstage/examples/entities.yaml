@@ -83,3 +83,14 @@ spec:
   lifecycle: production
   owner: guests
   type: service
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: all-events-logger
+  annotations:
+    backstage.io/kubernetes-id: all-events-logger
+spec:
+  lifecycle: production
+  owner: guests
+  type: service

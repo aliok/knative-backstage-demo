@@ -19,6 +19,7 @@ kubectl apply -f ./100-manifest/153-frauddetected-event-type.yaml
 kubectl apply -f ./100-manifest/200-payment-processor.yaml
 kubectl apply -f ./100-manifest/210-fraud-detector.yaml
 kubectl apply -f ./100-manifest/220-fraud-logger.yaml
+kubectl apply -f ./100-manifest/280-all-events-logger.yaml
 kubectl apply -f ./100-manifest/290-payment-event-generator.yaml
 ```
 
@@ -67,6 +68,7 @@ open http://localhost:3000/
 
 ```bash
 kubectl delete -f ./100-manifest/290-payment-event-generator.yaml
+kubectl delete -f ./100-manifest/280-all-events-logger.yaml
 kubectl delete -f ./100-manifest/220-fraud-logger.yaml
 kubectl delete -f ./100-manifest/210-fraud-detector.yaml
 kubectl delete -f ./100-manifest/200-payment-processor.yaml
@@ -79,10 +81,10 @@ kubectl delete -f ./100-manifest/100-broker.yaml
 
 
 TODO:
-- Install Backstage backend
+- Install Backstage backend (instructions for local link)
 - Configure Backstage plugin
-- 
-
+- Resources for various cases:
+  -  Random service that's not connected to anything
 
 ## Building demo images
 
