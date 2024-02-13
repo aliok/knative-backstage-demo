@@ -23,6 +23,13 @@ kubectl apply -f ./100-manifest/280-all-events-logger.yaml
 kubectl apply -f ./100-manifest/290-payment-event-generator.yaml
 ```
 
+Install the Backstage plugin backend:
+
+```bash
+# points to https://github.com/knative-extensions/backstage-plugins/pull/24
+kubectl apply -f https://storage.googleapis.com/knative-nightly/backstage-plugins/previous/v20240208-408beed/eventmesh.yaml
+```
+
 ## Starting up
 
 You need a service account that the Backstage backend can use to access the Kubernetes API:
@@ -54,10 +61,27 @@ export KUBE_SA_TOKEN=$(kubectl -n kube-system get secret backstage-admin -o json
 curl -k -H "Authorization: Bearer $KUBE_SA_TOKEN" -X GET "${KUBE_API_SERVER_URL}/api/v1/nodes" | json_pp
 ```
 
+Port-forward the backend service:
+```bash
+kubectl port-forward -n knative-eventing svc/eventmesh-backend 8080:8080
+```
+
+Run a sanity check:
+```bash
+curl -v http://localhost:8080/
+> {"eventTypes":[...],"brokers":[...]}
+```
+
+Set up more environment variables:
+```bash
+export KNATIVE_EVENT_MESH_BACKEND_URL="http://localhost:8080"
+```
+
 Start backstage:
 ```bash
 
 cd backstage
+yarn install
 yarn dev
 
 open http://localhost:3000/
@@ -78,11 +102,7 @@ kubectl delete -f ./100-manifest/151-paymentreceived-event-type.yaml
 kubectl delete -f ./100-manifest/100-broker.yaml
 ```
 
-
-
 TODO:
-- Install Backstage backend (instructions for local link)
-- Configure Backstage plugin
 - Resources for various cases:
   -  Random service that's not connected to anything
 
