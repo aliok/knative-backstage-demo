@@ -2,6 +2,13 @@
 
 This demo app is a container image built from https://github.com/aliok/knative-backstage-demo
 
+## Prerequisites
+
+You need a Kubernetes cluster with Knative Eventing and Serving deployed.
+
+See https://knative.dev/docs/install/ for installing Knative.
+
+
 ## Running the quickstart container image
 
 This quickstart container creates some resources in the cluster and then it starts a Backstage instance.
