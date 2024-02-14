@@ -5163,10 +5163,10 @@
   dependencies:
     ioredis "^5.3.2"
 
-"@knative-extensions/plugin-knative-event-mesh-backend@0.0.0-snapshot.c8287b9":
-  version "0.0.0-snapshot.c8287b9"
-  resolved "https://registry.yarnpkg.com/@knative-extensions/plugin-knative-event-mesh-backend/-/plugin-knative-event-mesh-backend-0.0.0-snapshot.c8287b9.tgz#6d20c178a078cf00b1ff6c8a481007ef7e723d57"
-  integrity sha512-j4jT4rDucz7ikf3Xc/OSm3iMbomab6yoLff+lvyy9PNTbNn3ODn/HNRJGKyRQwsvWSnyVzTlciPsN9svZX8s+A==
+"@knative-extensions/plugin-knative-event-mesh-backend@0.0.0-snapshot.922328b":
+  version "0.0.0-snapshot.922328b"
+  resolved "https://registry.yarnpkg.com/@knative-extensions/plugin-knative-event-mesh-backend/-/plugin-knative-event-mesh-backend-0.0.0-snapshot.922328b.tgz#60f6785d2b73087407d31af548ca36e664ced2ae"
+  integrity sha512-x84Vva/XH3enGYfCo2koKLYL3Q/4tSJENqxx2nAEOk0UfzQumJOq0wPhaXTXz8csV2KlS8Vfmfak4ESCJBJ4iQ==
   dependencies:
     "@backstage/backend-common" "^0.19.9"
     "@backstage/config" "^1.1.1"
