@@ -1,5 +1,9 @@
 # Knative Backstage Demo
 
+## Quickstart
+
+See [quickstart](quickstart) for using a pre-built container image for this demo.
+
 ## Installation
 
 Install Knative Eventing and Serving:
@@ -197,4 +201,15 @@ There are 2 images:
 
   # publish
   docker push aliok/generic-service
+```
+
+## Running the quickstart container image
+
+See [quickstart](quickstart) for using a pre-built container image for this demo.
+
+## Building the easy start container image
+
+```bash
+docker build . -f quickstart/Dockerfile -t aliok/knative-backstage-demo --platform=linux/amd64 --progress=plain
+docker push aliok/knative-backstage-demo
 ```
