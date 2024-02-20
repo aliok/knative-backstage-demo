@@ -81,14 +81,14 @@ Set up more environment variables:
 export KNATIVE_EVENT_MESH_BACKEND_URL="http://localhost:8080"
 ```
 
-Start backstage:
+Start Backstage:
 ```bash
 
 cd backstage
 yarn install
 yarn dev
 
-open http://localhost:3000/
+# open http://localhost:3000/
 ```
 
 

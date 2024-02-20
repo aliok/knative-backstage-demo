@@ -113,10 +113,23 @@ kubectl port-forward -n knative-backstage-demo svc/knative-backstage-demo 3000:3
 kubectl port-forward -n knative-backstage-demo svc/knative-backstage-demo 7007:7007
 ```
 
+The port forwarding commands above might fail, if the Backstage server is not ready yet.
+
+In that case, you need to wait a bit and then try again.
+
+To make sure, you can check the logs of the `knative-backstage-demo` pod:
+
+```shell
+> kubectl logs -n knative-backstage-demo knative-backstage-demo
+# ... wait until
+# [0] <i> [webpack-dev-server] Project is running at:
+# [0] <i> [webpack-dev-server] Loopback: http://localhost:3000/, http://[::1]:3000/
+```
+
 Open the Backstage web UI:
 
 ```shell
-open http://localhost:3000/
+# open http://localhost:3000/
 ```
 
 ## Cleanup
