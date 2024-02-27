@@ -44,6 +44,7 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: payment-processor
+  namespace: knative-backstage-demo
   annotations:
     backstage.io/kubernetes-id: payment-processor
 spec:
@@ -55,6 +56,7 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: payment-event-generator-source
+  namespace: knative-backstage-demo
   annotations:
     backstage.io/kubernetes-id: payment-event-generator-source
 spec:
@@ -66,6 +68,7 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: fraud-detector
+  namespace: knative-backstage-demo
   annotations:
     backstage.io/kubernetes-id: fraud-detector
 spec:
@@ -77,6 +80,7 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: fraud-logger
+  namespace: knative-backstage-demo
   annotations:
     backstage.io/kubernetes-id: fraud-logger
 spec:
@@ -88,6 +92,7 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: all-events-logger
+  namespace: knative-backstage-demo
   annotations:
     backstage.io/kubernetes-id: all-events-logger
 spec:

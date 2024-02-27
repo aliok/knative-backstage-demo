@@ -207,7 +207,7 @@ There are 2 images:
 
 See [quickstart](quickstart) for using a pre-built container image for this demo.
 
-## Building the easy start container image
+## Building the quick start container image
 
 ```bash
 docker build . -f quickstart/Dockerfile -t aliok/knative-backstage-demo --platform=linux/amd64 --progress=plain
