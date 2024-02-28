@@ -1,5 +1,7 @@
 # Knative Backstage Demo
 
+A video of the demo is available at https://www.youtube.com/watch?v=4h1j1v8KrY0
+
 ## Quickstart
 
 See [quickstart](quickstart) for using a pre-built container image for this demo.

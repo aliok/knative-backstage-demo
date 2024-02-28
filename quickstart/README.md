@@ -2,6 +2,8 @@
 
 This demo app is a container image built from https://github.com/aliok/knative-backstage-demo
 
+A video of the demo is available at https://www.youtube.com/watch?v=4h1j1v8KrY0
+
 ## Prerequisites
 
 You need a Kubernetes cluster with Knative Eventing and Serving deployed.
