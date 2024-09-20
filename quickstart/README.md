@@ -137,7 +137,24 @@ Open the Backstage web UI:
 ## Cleanup
 
 ```shell
-kubectl delete namespace knative-backstage-demo
+# svc and the demo pod
+kubectl delete svc -n knative-backstage-demo knative-backstage-demo
+kubectl delete pod -n knative-backstage-demo knative-backstage-demo
+# RBAC and SA for the demo container
 kubectl delete clusterrolebinding knative-backstage-demo
 kubectl delete clusterrole knative-backstage-demo
+kubectl delete serviceaccount -n knative-backstage-demo knative-backstage-demo
+# RBAC and SA for the Backstage instance
+kubectl delete clusterrolebinding backstage-admin
+kubectl delete clusterrole backstage-admin
+kubectl delete serviceaccount -n knative-backstage-demo backstage-admin
+# The namespace
+kubectl delete namespace knative-backstage-demo
+```
+
+## Building the image
+
+```shell
+docker build . -f quickstart/Dockerfile -t aliok/knative-backstage-demo --platform=linux/amd64
+docker push aliok/knative-backstage-demo
 ```
