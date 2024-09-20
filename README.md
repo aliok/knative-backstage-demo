@@ -32,25 +32,27 @@ kubectl apply -f ./100-manifest/290-payment-event-generator.yaml
 Install the Backstage plugin backend:
 
 ```bash
-# points to https://github.com/knative-extensions/backstage-plugins/pull/24
-kubectl apply -f https://storage.googleapis.com/knative-nightly/backstage-plugins/previous/v20240208-408beed/eventmesh.yaml
+# points to https://github.com/knative-extensions/backstage-plugins/pull/85
+# find from https://console.cloud.google.com/storage/browser/knative-nightly/backstage-plugins/previous;tab=objects?pageState=(%22StorageObjectListTable%22:(%22f%22:%22%255B%255D%22,%22s%22:%5B(%22i%22:%22displayName%22,%22s%22:%221%22)%5D))&authuser=0&prefix=&forceOnObjectsSortingFiltering=true
+kubectl apply -f https://storage.googleapis.com/knative-nightly/backstage-plugins/previous/v20240919-00059a3/eventmesh.yaml
 ```
 
 ## Starting up
 
-You need a service account that the Backstage backend can use to access the Kubernetes API:
+You need a service account that you will give to the Backstage backend. This will be passed in every request to the backend from the plugin
+and it will be used to access the Kubernetes API:
 ```bash
-# 1. create a new service account in the kube-system namespace
-kubectl -n kube-system create serviceaccount backstage-admin
+# 1. create a new service account in your namespace
+kubectl -n default create serviceaccount backstage-admin
 # 2. create a clusterrolebinding
-kubectl create clusterrolebinding backstage-admin --clusterrole=cluster-admin --serviceaccount=kube-system:backstage-admin
+kubectl create clusterrolebinding backstage-admin --clusterrole=cluster-admin --serviceaccount=default:backstage-admin
 # 3. create a secret for the service account
 kubectl apply -f - <<EOF
     apiVersion: v1
     kind: Secret
     metadata:
       name: backstage-admin
-      namespace: kube-system
+      namespace: default
       annotations:
         kubernetes.io/service-account.name: backstage-admin
     type: kubernetes.io/service-account-token
@@ -61,7 +63,7 @@ Set up some environment variables:
 ```bash
 export KUBE_API_SERVER_URL=$(kubectl config view --minify --output jsonpath="{.clusters[*].cluster.server}") # e.g. "https://192.168.2.151:16443"
 # get the SA token
-export KUBE_SA_TOKEN=$(kubectl -n kube-system get secret backstage-admin -o jsonpath='{.data.token}' | base64 --decode)
+export KUBE_SA_TOKEN=$(kubectl -n default get secret backstage-admin -o jsonpath='{.data.token}' | base64 --decode)
 
 # run a sanity check with the token
 curl -k -H "Authorization: Bearer $KUBE_SA_TOKEN" -X GET "${KUBE_API_SERVER_URL}/api/v1/nodes" | json_pp
@@ -74,13 +76,14 @@ kubectl port-forward -n knative-eventing svc/eventmesh-backend 8080:8080
 
 Run a sanity check:
 ```bash
-curl -v http://localhost:8080/
+curl -v -H "Authorization: Bearer $KUBE_SA_TOKEN" http://localhost:8080/
 > {"eventTypes":[...],"brokers":[...]}
 ```
 
 Set up more environment variables:
 ```bash
-export KNATIVE_EVENT_MESH_BACKEND_URL="http://localhost:8080"
+export KNATIVE_EVENT_MESH_BACKEND="http://localhost:8080"
+export KNATIVE_EVENT_MESH_TOKEN=$KUBE_SA_TOKEN
 ```
 
 Start Backstage:

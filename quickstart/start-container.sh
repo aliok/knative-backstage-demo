@@ -37,8 +37,8 @@ cd backstage
 echo "Installing Backstage dependencies"
 yarn install
 
-export KNATIVE_EVENT_MESH_BACKEND_URL="http://eventmesh-backend.knative-eventing.svc:8080"
-echo "KNATIVE_EVENT_MESH_BACKEND_URL: ${KNATIVE_EVENT_MESH_BACKEND_URL}"
+export KNATIVE_EVENT_MESH_BACKEND="http://eventmesh-backend.knative-eventing.svc:8080"
+echo "KNATIVE_EVENT_MESH_BACKEND: ${KNATIVE_EVENT_MESH_BACKEND}"
 
 echo "Starting Backstage"
 yarn dev
