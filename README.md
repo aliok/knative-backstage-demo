@@ -1,5 +1,9 @@
 # Knative Backstage Demo
 
+This is a demo of:
+- Knative Event Mesh Backstage plugin: Showing Knative Eventing resources in Backstage
+- Knative Function templates: Generating Knative Function code in Backstage
+
 A video of the demo is available at https://www.youtube.com/watch?v=4h1j1v8KrY0
 
 ## Quickstart
@@ -85,6 +89,18 @@ Set up more environment variables:
 export KNATIVE_EVENT_MESH_BACKEND="http://localhost:8080"
 export KNATIVE_EVENT_MESH_TOKEN=$KUBE_SA_TOKEN
 ```
+
+For the templates, you will need a GitHub token to be able to push the generated code to a repository. 
+You can create a token from the GitHub settings page and give it the `repo` scope.
+
+Alternatively, for local development, you can use a personal token created by the `gh` CLI.
+
+```bash
+export GITHUB_TOKEN=<your-token>
+# or
+export GITHUB_TOKEN=$(gh auth token)
+```
+
 
 Start Backstage:
 ```bash
