@@ -95,7 +95,7 @@ catalog:
     # TODO: fix the URL with main
     # Knative Function templates
     - type: url
-      target: https://github.com/knative-extensions/backstage-plugins/blob/a2b93ec867bfc10b3acbc8f4263116fe3083dcda/backstage/templates/location.yaml
+      target: https://github.com/knative-extensions/backstage-plugins/blob/main/backstage/templates/location.yaml
       rules:
         - allow: [ Location, Template ]
 
