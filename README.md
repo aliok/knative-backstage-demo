@@ -231,6 +231,6 @@ See [quickstart](quickstart) for using a pre-built container image for this demo
 ## Building the quick start container image
 
 ```bash
-docker build . -f quickstart/Dockerfile -t aliok/knative-backstage-demo --platform=linux/amd64 --progress=plain
+docker build . -f quickstart/Dockerfile -t aliok/knative-backstage-demo --platform=linux/amd64
 docker push aliok/knative-backstage-demo
 ```

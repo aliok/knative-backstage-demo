@@ -67,6 +67,17 @@ roleRef:
 EOF
 ```
 
+For the templates, you will need a GitHub token to be able to push the generated code to a repository.
+You can create a token from the GitHub settings page and give it the `repo` scope.
+
+Alternatively, for local development, you can use a personal token created by the `gh` CLI.
+
+```bash
+export GITHUB_TOKEN=<your-token>
+# or
+export GITHUB_TOKEN=$(gh auth token)
+```
+
 Create the demo app:
 
 ```shell
@@ -87,6 +98,9 @@ spec:
     ports:
     - containerPort: 3000
     - containerPort: 7007
+    env:
+    - name: GITHUB_TOKEN
+      value: $GITHUB_TOKEN
 ---
 apiVersion: v1
 kind: Service
